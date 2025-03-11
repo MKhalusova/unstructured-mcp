@@ -1,5 +1,9 @@
 A Model Context Protocol server that provides unstructured document processing capabilities. 
 This server enables LLMs to extract and use content from an unstructured document.
+
+**This repo is work in progress, proceed with caution :)**
+
+
 Supported file types:
 
 ```
@@ -11,3 +15,33 @@ Supported file types:
  ".uos2", ".web", ".webp", ".wk2", ".xls", ".xlsb", ".xlsm", ".xlsx", ".xlw", ".xml",
  ".zabw"}
 ```
+
+Prerequisites: 
+You'll need:
+* Two S3 buckets, one will be used as a source of documents in a processing workflow, and the other one will 
+be a destination since Unstructured Platform currently doesn't support local sources and destinations.
+* Your AWS auth credentials: access key and secret key. 
+* Unstructured Platform API key.
+
+Quick TLDR on how to add this MCP to your Claude Desktop:
+1. Clone the repo and set up the UV environment.
+2. Create a `.env` file in the root directory and add the following env variables: `AWS_S3_SOURCE_BUCKET`, `AWS_S3_DESTINATION_BUCKET`, `AWS_KEY`, `AWS_SECRET`, `UNSTRUCTURED_API_KEY`.
+3. Run the MCP server: `uv run doc_processor.py`
+4. Go to `~/Library/Application Support/Claude/` and create a `claude_desktop_config.json`. In that file add:
+```
+{
+    "mcpServers": {
+        "unstructured_doc_processor": {
+            "command": "PATH/TO/YOUR/UV",
+            "args": [
+                "--directory",
+                "ABSOLUTE/PATH/TO/YOUR/unstructured-mcp/",
+                "run",
+                "doc_processor.py"
+            ],
+            "disabled": false
+        }
+    }
+}
+```
+5. Restart Claude Desktop. You should now be able to use the MCP.
