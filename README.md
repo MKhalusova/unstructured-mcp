@@ -18,14 +18,11 @@ Supported file types:
 
 Prerequisites: 
 You'll need:
-* Two S3 buckets, one will be used as a source of documents in a processing workflow, and the other one will 
-be a destination since Unstructured Platform currently doesn't support local sources and destinations.
-* Your AWS auth credentials: access key and secret key. 
 * Unstructured Platform API key.
 
 Quick TLDR on how to add this MCP to your Claude Desktop:
 1. Clone the repo and set up the UV environment.
-2. Create a `.env` file in the root directory and add the following env variables: `AWS_S3_SOURCE_BUCKET`, `AWS_S3_DESTINATION_BUCKET`, `AWS_KEY`, `AWS_SECRET`, `UNSTRUCTURED_API_KEY`.
+2. Create a `.env` file in the root directory and add the following env variable: `UNSTRUCTURED_API_KEY`.
 3. Run the MCP server: `uv run doc_processor.py`
 4. Go to `~/Library/Application Support/Claude/` and create a `claude_desktop_config.json`. In that file add:
 ```
