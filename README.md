@@ -3,7 +3,6 @@ This server enables LLMs to extract and use content from an unstructured documen
 
 **This repo is work in progress, proceed with caution :)**
 
-
 Supported file types:
 
 ```
@@ -18,7 +17,8 @@ Supported file types:
 
 Prerequisites: 
 You'll need:
-* Unstructured Platform API key.
+* Unstructured API key. [Learn how to obtain one here](https://docs.unstructured.io/api-reference/partition/overview#get-started)
+* Claude Desktop installed locally
 
 Quick TLDR on how to add this MCP to your Claude Desktop:
 1. Clone the repo and set up the UV environment.
