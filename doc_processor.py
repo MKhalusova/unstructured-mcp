@@ -32,7 +32,7 @@ async def app_lifespan(server: FastMCP) -> AsyncIterator[AppContext]:
 # Create MCP server instance
 mcp = FastMCP("unstructured-mcp", lifespan=app_lifespan, dependencies=["unstructured-client", "python-dotenv"])
 # Local directory to store processed files
-PROCESSED_FILES_FOLDER = "processed_files"
+PROCESSED_FILES_FOLDER = "<absolute-path-to-your-local-directory>"
 
 
 def load_environment_variables() -> None:
@@ -87,6 +87,8 @@ async def process_document(ctx: Context, filepath: str) -> str:
      Args:
     filepath: path to the document
     """
+
+    filepath = os.path.abspath(filepath)
 
     if not os.path.isfile(filepath):
         return "File does not exist"
