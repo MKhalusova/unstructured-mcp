@@ -14,14 +14,12 @@ class AppContext:
     client: UnstructuredClient
 
 
+@asynccontextmanager
 async def app_lifespan(server: FastMCP) -> AsyncIterator[AppContext]:
     """Manage Unstructured API client lifecycle"""
     api_key = os.getenv("UNSTRUCTURED_API_KEY")
     if not api_key:
         raise ValueError("UNSTRUCTURED_API_KEY environment variable is required")
-
-    # Ensure the processed files directory exists
-    os.makedirs(PROCESSED_FILES_FOLDER, exist_ok=True)
 
     client = UnstructuredClient(api_key_auth=api_key)
     try:
@@ -118,6 +116,8 @@ async def process_document(ctx: Context, filepath: str) -> str:
             strategy=shared.Strategy.AUTO,
         ),
     )
+
+    os.makedirs(PROCESSED_FILES_FOLDER, exist_ok=True)
 
     try:
         res = client.general.partition(request=req)
